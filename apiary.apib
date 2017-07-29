@@ -1,80 +1,34 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
+HOST: https://chicago-live-jazz-api.herokuapp.com/
 
 # Chicago Live Jazz
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Chicago Live Jazz is an api which pulls the details of the performances occuring everyday at various jazz clubs in Chicago
 
-## Questions Collection [/questions]
+## The Green Mill [/api/greenmill]
 
-### List All Questions [GET]
+### Get info about today's shows [GET]
 
 + Response 200 (application/json)
 
-        [
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
-            }
-        ]
-
-### Create a New Question [POST]
-
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "events": [{
+                "headline": "THE “FLIPSIDE” SHOW with CHRIS FOREMAN on HAMMOND B-3 ORGAN",
+                "price": "FREE",
+                "time": "5:00pm - 8:00pm",
+                "video": "yPYiDjKC_Ao",
+                "details": "featuring:\nChris Foreman on Hammond B-3 Organ and vocals"
+            }, {
+                "headline": "JEFF NEWELL’S NEW-TRAD OCTET",
+                "price": "$15 cover",
+                "time": "9:00pm - 1:00am",
+                "video": "zyWG-PRjGXo",
+                "details": "Jeff Newell’s New-Trad Octet featuring:\nJeff Newell – sax\nOrbert Davis – trumpet\nAndy Baker – trombone\nMike Hogg – tuba\nNeal Alger – guitar\nSteve Million – piano, Hammond B-3 organ\nChuck Webb – bass\nRick Vitek – drums"
+            }, {
+                "headline": "immediately followed by AFTER HOURS GREEN MILL QUARTET JAM SESSION",
+                "price": "FREE",
+                "time": "1:00am - 4:00am",
+                "video": "vhIa1Mbhta4",
+                "details": "featuring:\nEric Schneider – sax\nDennis Luxion – piano\nSteve Hashimoto – bass\nRick Shandling – drums"
+            }]
         }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
-            }
