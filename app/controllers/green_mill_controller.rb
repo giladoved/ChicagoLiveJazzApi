@@ -3,10 +3,10 @@ require 'open-uri'
 
 class GreenMillController < ActionController::API
   def index
-    render json: parse_html_calendar
+    render json: build_json_from_html
   end
 
-  def parse_html_calendar
+  def build_json_from_html
     page = Nokogiri::HTML(open("tmp/greenmillcalendar.htm"))
     today = page.css(".eventful-today")
     shows = today.css("li")
@@ -21,12 +21,12 @@ class GreenMillController < ActionController::API
     hrefs.each do |href|
       page = Nokogiri::HTML(open(href))
       event = page.at_css('.event')
-      headline = event.at_css('.eventdate').content.tr("\n", '')
-      price = event.at_css('.eventtime').content.tr("\n", '')
+      headline = event.at_css('.eventdate').content.tr("\n", '').gsub(/\(.+\)/, "").strip
+      price = event.at_css('.eventtime').content.tr("\n", '').strip
       details = ""
       paragraphs = event.css('p')
-      time = paragraphs.shift.content
-      details = paragraphs.last.content
+      time = paragraphs.shift.content.strip
+      details = paragraphs.last.content.strip
       eventjson = {:headline => headline, :price => price, :time => time, :details => details }
       eventjsons << eventjson
     end
