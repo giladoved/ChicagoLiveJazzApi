@@ -1,4 +1,3 @@
-require 'pry'
 require 'open-uri'
 
 class GreenMillController < ActionController::API
