@@ -13,7 +13,7 @@ class GreenMillController < ActionController::API
       render json: generated_json
     else
       timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      puts "filetime: ", File.ctime(fileLoc).to_f)
+      puts "filetime: ", File.ctime(fileLoc).to_f
       puts "now: ", Time.now.to_f
       puts "Time difference: ", timeDiff
       if timeDiff < 1
