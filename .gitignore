@@ -15,4 +15,6 @@
 
 .byebug_history
 
+/public/*.json
+
 *.DS_Store
