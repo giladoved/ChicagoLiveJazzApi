@@ -13,14 +13,16 @@ class GreenMillController < ActionController::API
       render json: generated_json
     else
       timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
+      puts "filetime: ", File.ctime(fileLoc).to_f)
+      puts "now: ", Time.now.to_f
       puts "Time difference: ", timeDiff
-      if timeDiff > 1
+      if timeDiff < 1
+        puts "Served cached file"
+        render json: File.read(fileLoc)
+      else
         puts "Reloaded cache"
         File.delete(fileLoc)
         index
-      else
-        puts "Served cached file"
-        render json: File.read(fileLoc)
       end
     end
   end
