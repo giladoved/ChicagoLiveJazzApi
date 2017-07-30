@@ -12,7 +12,7 @@ class GreenMillController < ActionController::API
       render json: generated_json
     else
       timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      if timeDiff > 6
+      if timeDiff > 1
         puts "Reloaded cache"
         File.delete(fileLoc)
         index
