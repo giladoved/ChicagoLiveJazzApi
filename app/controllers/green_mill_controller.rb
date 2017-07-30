@@ -1,5 +1,6 @@
 require 'open-uri'
 require 'json'
+require 'date'
 
 class GreenMillController < ActionController::API
   def index
@@ -12,6 +13,7 @@ class GreenMillController < ActionController::API
       render json: generated_json
     else
       timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
+      puts "Time difference: ", timeDiff
       if timeDiff > 1
         puts "Reloaded cache"
         File.delete(fileLoc)
@@ -24,7 +26,9 @@ class GreenMillController < ActionController::API
   end
 
   def build_json_from_html
-    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=7&yr=2017"))
+    year = Date.today.strftime("%Y")
+    month = Date.today.strftime("%m")
+    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=#{month}&yr=#{year}"))
     today = page.css(".eventful-today")
     shows = today.css("li")
     links = shows.css('a')[0]
