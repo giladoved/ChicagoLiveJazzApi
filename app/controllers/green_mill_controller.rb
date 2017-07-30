@@ -12,7 +12,7 @@ class GreenMillController < ActionController::API
       render json: generated_json
     else
       timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      if timeDiff > 6
+      if timeDiff > 1
         puts "Reloaded cache"
         File.delete(fileLoc)
         index
@@ -24,7 +24,7 @@ class GreenMillController < ActionController::API
   end
 
   def build_json_from_html
-    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/"))
+    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=7&yr=2017"))
     today = page.css(".eventful-today")
     shows = today.css("li")
     links = shows.css('a')[0]
