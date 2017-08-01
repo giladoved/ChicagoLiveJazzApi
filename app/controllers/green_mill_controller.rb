@@ -4,27 +4,7 @@ require 'date'
 
 class GreenMillController < ActionController::API
   def index
-    fileLoc = "#{Rails.root}/public/greenmill.json"
-    if !File.exists?(fileLoc)
-      generated_json = build_json_from_html
-      File.open(fileLoc, "w+") do |f|
-        f.write(generated_json.to_json)
-      end
-      render json: generated_json
-    else
-      timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      puts "filetime: ", File.ctime(fileLoc).to_f
-      puts "now: ", Time.now.to_f
-      puts "Time difference: ", timeDiff
-      if timeDiff < 1
-        puts "Served cached file"
-        render json: File.read(fileLoc)
-      else
-        puts "Reloaded cache"
-        File.delete(fileLoc)
-        index
-      end
-    end
+    render json: build_json_from_html
   end
 
   def build_json_from_html
