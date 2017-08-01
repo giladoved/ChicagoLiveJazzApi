@@ -10,7 +10,8 @@ class GreenMillController < ActionController::API
   def build_json_from_html
     year = Date.today.strftime("%Y")
     month = Date.today.strftime("%m")
-    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=#{month}&yr=#{year}"))
+    page_url = "http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=#{month}&yr=#{year}"
+    page = Nokogiri::HTML(open(page_url))
     today = page.css(".eventful-today")
     shows = today.css("li")
     links = shows.css('a')[0]
