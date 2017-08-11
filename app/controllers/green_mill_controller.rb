@@ -1,30 +1,29 @@
 require 'open-uri'
 require 'json'
+require 'date'
 
 class GreenMillController < ActionController::API
   def index
     fileLoc = "#{Rails.root}/public/greenmill.json"
-    if !File.exists?(fileLoc)
-      generated_json = build_json_from_html
-      File.open(fileLoc, "w+") do |f|
-        f.write(generated_json.to_json)
-      end
-      render json: generated_json
-    else
-      timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      if timeDiff > 6
-        puts "Reloaded cache"
-        File.delete(fileLoc)
-        index
-      else
-        puts "Served cached file"
-        render json: File.read(fileLoc)
-      end
-    end
+    render json: File.read(fileLoc)
   end
 
+	def daily_update
+		puts "Daily update: Green Mill"
+    fileLoc = "#{Rails.root}/public/greenmill.json"
+		if File.exists?(fileLoc)
+			File.delete(fileLoc)
+		end
+		result = build_json_from_html
+		File.open(fileLoc, "w+") do |f|
+			f.write(result.to_json)
+		end
+	end
+
   def build_json_from_html
-    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/"))
+		year = Date.today.strftime("%Y")
+ 		month = Date.today.strftime("%m")
+ 		page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=#{month}&yr=#{year}"))
     today = page.css(".eventful-today")
     shows = today.css("li")
     links = shows.css('a')[0]
