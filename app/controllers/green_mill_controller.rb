@@ -12,8 +12,6 @@ class GreenMillController < ActionController::API
 				f.write(result.to_json)
 			end
     else
-    	timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      binding.pry
 			puts "Time difference: #{timeDiff}"
       if timeDiff > 3 || timeDiff < 0.5
         puts "Reloaded cache"
