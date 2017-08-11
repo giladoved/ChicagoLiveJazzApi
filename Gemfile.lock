@@ -41,7 +41,6 @@ GEM
     arel (8.0.0)
     builder (3.2.3)
     byebug (9.0.6)
-    chronic (0.10.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     erubi (1.6.1)
@@ -125,8 +124,6 @@ GEM
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
-    whenever (0.9.7)
-      chronic (>= 0.6.3)
     yt (0.28.5)
       activesupport
 
@@ -143,7 +140,6 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data
-  whenever
   yt (~> 0.28.0)
 
 BUNDLED WITH

@@ -18,5 +18,4 @@
 /public/*.json
 
 *.DS_Store
-Gemfile.lock
 public/*.json
