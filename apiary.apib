@@ -1,0 +1,34 @@
+FORMAT: 1A
+HOST: https://chicago-live-jazz-api.herokuapp.com/
+
+# Chicago Live Jazz
+
+Chicago Live Jazz is an api which pulls the details of the performances occuring everyday at various jazz clubs in Chicago
+
+## The Green Mill [/api/greenmill]
+
+### Get info about today's shows [GET]
+
++ Response 200 (application/json)
+
+        {
+            "events": [{
+                "headline": "THE “FLIPSIDE” SHOW with CHRIS FOREMAN on HAMMOND B-3 ORGAN",
+                "price": "FREE",
+                "time": "5:00pm - 8:00pm",
+                "video": "yPYiDjKC_Ao",
+                "details": "featuring:\nChris Foreman on Hammond B-3 Organ and vocals"
+            }, {
+                "headline": "JEFF NEWELL’S NEW-TRAD OCTET",
+                "price": "$15 cover",
+                "time": "9:00pm - 1:00am",
+                "video": "zyWG-PRjGXo",
+                "details": "Jeff Newell’s New-Trad Octet featuring:\nJeff Newell – sax\nOrbert Davis – trumpet\nAndy Baker – trombone\nMike Hogg – tuba\nNeal Alger – guitar\nSteve Million – piano, Hammond B-3 organ\nChuck Webb – bass\nRick Vitek – drums"
+            }, {
+                "headline": "immediately followed by AFTER HOURS GREEN MILL QUARTET JAM SESSION",
+                "price": "FREE",
+                "time": "1:00am - 4:00am",
+                "video": "vhIa1Mbhta4",
+                "details": "featuring:\nEric Schneider – sax\nDennis Luxion – piano\nSteve Hashimoto – bass\nRick Shandling – drums"
+            }]
+        }
