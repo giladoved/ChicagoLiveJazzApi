@@ -12,7 +12,11 @@ class GreenMillController < ActionController::API
 				f.write(result.to_json)
 			end
     else
+<<<<<<< HEAD
 			timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
+=======
+    	timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
+>>>>>>> dev
 			puts "Time difference: #{timeDiff}"
       if timeDiff > 3 || timeDiff < 0.5
         puts "Reloaded cache"
@@ -51,7 +55,7 @@ class GreenMillController < ActionController::API
       details = ""
       paragraphs = event.css('p')
       time = paragraphs.shift.content.strip
-      details = paragraphs.last.content.strip
+      details = paragraphs[1..-1].map { |p| p.content.strip }.join("\n")
       video_id = get_video(headline)
       eventjson = {:headline => headline, :price => price, :time => time, :video => video_id, :details => details }
       eventjsons << eventjson
