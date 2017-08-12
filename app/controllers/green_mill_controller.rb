@@ -51,7 +51,6 @@ class GreenMillController < ActionController::API
       details = ""
       paragraphs = event.css('p')
       time = paragraphs.shift.content.strip
-      binding.pry
       details = paragraphs[1..-1].map { |p| p.content.strip }.join("\n")
       video_id = get_video(headline)
       eventjson = {:headline => headline, :price => price, :time => time, :video => video_id, :details => details }
