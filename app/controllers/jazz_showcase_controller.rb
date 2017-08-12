@@ -42,11 +42,21 @@ class JazzShowcaseController < ActionController::API
     headline = event.at_css('h1').text
     details = event.at_css('.grid.ten-tenths').css('h2').map { |h2| h2.text }.join("\n")
 		info = event.at_css('p.info')
-		time = info.children[2].text.strip
 		price = info.children[4].text.strip
 		video_search = headline.split(' ')[0..3].join(' ')
     video_id = get_video(video_search)
-		eventjson = {:headline => headline, :details => details, :time => time, :price => price, :video => video_id}
+
+		eventsjson = []
+		eventjson = {:headline => headline, :details => details, :price => price, :video => video_id}
+		time = info.children[2].text.strip
+		if time.split('/').count > 1
+			eventsjson << time.split('/').map { |t| eventjson.merge({:time => t.strip}) }
+		elsif time.split('&').count > 1
+			eventsjson << time.split('&').map { |t| eventjson.merge({:time => t.strip}) }
+		else
+			eventjson.merge({:time => time})
+		end
+		result = {:events => eventsjson}
 	end
 
 	def get_video(group)
