@@ -14,11 +14,11 @@ class JazzShowcaseController < ActionController::API
     page_details = Nokogiri::HTML(open(link))
     event = page_details.at_css('.content')
     headline = event.at_css('h1').text
-    bio = event.at_css('.grid.ten-tenths').css('h2').map { |h2| h2.text }.join("\n")
+    details = event.at_css('.grid.ten-tenths').css('h2').map { |h2| h2.text }.join("\n")
 		info = event.at_css('p.info')
 		time = info.children[2].text.strip
 		price = info.children[4].text.strip
-		eventjson = {:headline => headline, :bio => bio, :time => time, :price => price}
+		eventjson = {:headline => headline, :details => details, :time => time, :price => price}
     render json: eventjson
   end
 end
