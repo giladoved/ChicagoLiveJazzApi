@@ -50,11 +50,11 @@ class JazzShowcaseController < ActionController::API
 		eventjson = {:headline => headline, :details => details, :price => price, :video => video_id}
 		time = info.children[2].text.strip
 		if time.split('/').count > 1
-			eventsjson << time.split('/').map { |t| eventjson.merge({:time => t.strip}) }
+			eventsjson = time.split('/').map { |t| eventjson.merge({:time => t.strip}) }
 		elsif time.split('&').count > 1
-			eventsjson << time.split('&').map { |t| eventjson.merge({:time => t.strip}) }
+			eventsjson = time.split('&').map { |t| eventjson.merge({:time => t.strip}) }
 		else
-			eventjson.merge({:time => time})
+			eventsjson = eventjson.merge({:time => time})
 		end
 		result = {:events => eventsjson}
 	end
