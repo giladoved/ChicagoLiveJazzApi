@@ -34,7 +34,7 @@ class JazzShowcaseController < ActionController::API
     page = Nokogiri::HTML(open(page_url, user_agent), nil, "UTF-8")
  		day = DateTime.now.in_time_zone("Pacific/Honolulu").strftime("%d").to_i
     calendar_list = page.css('.calendar-list')
-    array_access = day * 2 - 3
+    array_access = day * 2 - 1
     calendar_row = calendar_list.children[array_access]
     link = calendar_row.at_css('a')['href']
     page_details = Nokogiri::HTML(open(link))
@@ -68,7 +68,7 @@ class JazzShowcaseController < ActionController::API
     keywords = ["jazz", "showcase", "live", "chicago", ""]
     keywords.each do |keyword|
       videos = Yt::Collections::Videos.new
-      videos.where(q: "#{group} #{keyword}")
+			binding.pry
       if videos.size > 1
         video_id = videos.first.id
         break
