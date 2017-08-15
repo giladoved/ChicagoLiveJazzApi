@@ -68,8 +68,7 @@ class JazzShowcaseController < ActionController::API
     keywords = ["jazz", "showcase", "live", "chicago", ""]
     keywords.each do |keyword|
       videos = Yt::Collections::Videos.new
-      videos.where(q: "#{group} #{keyword}")
-      if videos.size > 1
+      if videos.size > 0
         video_id = videos.first.id
         break
       end

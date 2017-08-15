@@ -4,23 +4,23 @@ require 'date'
 
 class GreenMillController < ActionController::API
   def index
-    puts "serving: Green Mill info"
+		puts "serving: Green Mill info"
     fileLoc = "#{Rails.root}/public/greenmill.json"
     if !File.exists?(fileLoc)
-      result = build_json_from_html
-      File.open(fileLoc, "w+") do |f|
-        f.write(result.to_json)
-      end
+		  result = build_json_from_html
+			File.open(fileLoc, "w+") do |f|
+				f.write(result.to_json)
+			end
     else
-      timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
-      puts "Time difference: #{timeDiff}"
+    	timeDiff = ((Time.now.to_f - File.ctime(fileLoc).to_f) / 3600.0)
+			puts "Time difference: #{timeDiff}"
       if timeDiff > 3 || timeDiff < 0.5
         puts "Reloaded cache"
-        File.delete(fileLoc)
-        result = build_json_from_html
-        File.open(fileLoc, "w+") do |f|
-          f.write(result.to_json)
-        end
+				File.delete(fileLoc)
+		  	result = build_json_from_html
+				File.open(fileLoc, "w+") do |f|
+        	f.write(result.to_json)
+      	end
       else
         puts "Served cached file"
         result = File.read(fileLoc)
@@ -30,9 +30,9 @@ class GreenMillController < ActionController::API
   end
 
   def build_json_from_html
-    year = Date.today.strftime("%Y")
-    month = Date.today.strftime("%m")
-    page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=#{month}&yr=#{year}"))
+		year = Date.today.strftime("%Y")
+ 		month = Date.today.strftime("%m")
+ 		page = Nokogiri::HTML(open("http://greenmilljazz.com/calendar/?ajaxCalendar=1&mo=#{month}&yr=#{year}"))
     today = page.css(".eventful-today")
     shows = today.css("li")
     links = shows.css('a')[0]
@@ -69,7 +69,7 @@ class GreenMillController < ActionController::API
     keywords.each do |keyword|
       videos = Yt::Collections::Videos.new
       videos.where(q: "#{group} #{keyword}")
-      if videos.size > 1
+      if videos.count > 0
         video_id = videos.first.id
         break
       end
