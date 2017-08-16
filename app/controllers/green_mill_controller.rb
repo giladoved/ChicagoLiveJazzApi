@@ -65,11 +65,11 @@ class GreenMillController < ActionController::API
     end
 
     video_id = nil
-    keywords = ["green mill", "live", "chicago", ""]
+    keywords = ["", " jazz", " green mill", " live", " chicago"]
     keywords.each do |keyword|
       videos = Yt::Collections::Videos.new
-      videos.where(q: "#{group} #{keyword}")
-      if videos.count > 0
+      videos.where(q: "#{group}#{keyword}")
+      if videos.first != nil
         video_id = videos.first.id
         break
       end

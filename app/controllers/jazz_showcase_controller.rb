@@ -43,7 +43,7 @@ class JazzShowcaseController < ActionController::API
     details = event.at_css('.grid.ten-tenths').css('h2').map { |h2| h2.text }.join("\n")
 		info = event.at_css('p.info')
 		price = info.children[4].text.strip
-		video_search = headline.split(' ')[0..3].join(' ')
+		video_search = headline.split(' ')[0..2].join(' ')
     video_id = get_video(video_search)
 
 		eventsjson = []
@@ -65,10 +65,11 @@ class JazzShowcaseController < ActionController::API
     end
 
     video_id = nil
-    keywords = ["jazz", "showcase", "live", "chicago", ""]
+    keywords = ["", " jazz", " showcase", " live", " chicago"]
     keywords.each do |keyword|
       videos = Yt::Collections::Videos.new
-      if videos.size > 0
+      videos.where(q: "#{group}#{keyword}")
+      if videos.first != nil
         video_id = videos.first.id
         break
       end
